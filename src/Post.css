@@ -1,0 +1,65 @@
+
+/*for each post on the home page*/
+.post {
+text-align: center;
+padding: 20px;
+border-radius: 8px;
+}
+
+.post-buttons {
+margin-top: 10px;
+}
+
+.update-button,
+.delete-button {
+padding: 8px 16px;
+margin-right: 10px;
+cursor: pointer;
+background-color: #4caf50; /* Green */
+color: white;
+border: none;
+border-radius: 4px;
+}
+
+.delete-button {
+background-color: #f44336; /* Red */
+}
+
+h4{
+    color: black
+}
+  
+.edit-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    /* Adjust as needed */
+    margin: auto;
+}
+
+.edit-input,
+.edit-textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+
+.update-button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.update-button:hover {
+    background-color: #45a049;
+}
+
+.submitted {
+    color: #1ED760;
+    align-items: center;
+}
