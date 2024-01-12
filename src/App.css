@@ -1,42 +1,106 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* body{
+    display: flex;
+    justify-content: center;
+} */
+
+
+.nav-links{
+  color: #1ED760;
+  display: flex;
+  justify-content: space-around;
+}
+
+.nav-links a {
+  color: #1ED760;
+  text-decoration: none;
+  padding-top: 25px;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+  color: white;
+}
+
+
+/* Style for the container of all posts */
+.post-container {
+  max-width: 50%;
+  padding-left: 25%;
+}
+
+/* Style for each individual post */
+.post {
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color:#666;
+}
+
+/* Style for post title */
+.post h3 {
+  margin-bottom: 10px;
+  color: white;
+}
+
+/* Style for post description */
+.post p {
+  color:black;
+}
+
+.post:hover {
+  background-color: grey;
+  transition: background-color 0.01s;
+}
+
+.message{
+  display: none;
+  color: #1ED760;
+  margin-top: 10px;
+}
+
+.form-container {
+  width: 50%;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.Title {
   text-align: center;
+  color: #1ED760;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.Form {
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.post_title,
+.post_description {
+  margin-bottom: 15px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+input,
+textarea {
+  width: 100%;
+  height: 50px;
 }
 
-.card {
-  padding: 2em;
+button.postBtn {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+button.postBtn:hover {
+  background-color: #1ED760;
 }
+
+.post-square{
+  padding-left: 30%;
+  padding-top: 8%;
+}
+

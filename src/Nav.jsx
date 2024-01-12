@@ -1,6 +1,7 @@
 import { VStack, Flex, HStack, Heading } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Link as Lin } from "@chakra-ui/react";
 
 const Nav = () => {
   return (
@@ -11,7 +12,9 @@ const Nav = () => {
       as="b"
       padding="1rem"
     >
-      <Heading fontSize="30px">SoundSpot</Heading>
+      <Lin href="/" style={{ textDecoration: "none" }} fontSize="25px">
+        SoundSpot
+      </Lin>
 
       <HStack spacing="8">
         <Link to="/">Home</Link>
