@@ -27,10 +27,15 @@ const Post = () => {
   const [newDescription, setNewDescription] = useState(postId.description);
 
   const [input, setInput] = useState("");
-  const isError = input === "";
   const [comments, setComments] = useState([]);
 
   const navigate = useNavigate();
+
+  const [isError, setIsError] = useState(false);
+  const handleInputBlur = () => {
+    // Check if the input is empty on blur and set isError accordingly
+    setIsError(input.trim() === "");
+  };
 
   useEffect(() => {
     async function fetchPostById(postId) {
@@ -242,7 +247,7 @@ const Post = () => {
             )}
             {post ? (
               <VStack justifyContent="center" padding="1rem" width="100%">
-                <FormControl isInvalid={isError}>
+                <FormControl isInvalid={isError} isRequired>
                   <Input
                     backgroundColor="white"
                     placeholder="Write a Comment"
@@ -250,15 +255,16 @@ const Post = () => {
                     value={input}
                     _placeholder={{ color: "#242424" }}
                     onChange={(e) => setInput(e.target.value)}
+                    onBlur={handleInputBlur}
                   />
                   {!isError ? (
-                    <FormHelperText>
-                      Writing a positive comment...
-                    </FormHelperText>
+                    <FormHelperText>Write a positive comment!</FormHelperText>
                   ) : (
-                    <FormErrorMessage>Comment is required.</FormErrorMessage>
+                    <FormErrorMessage color="#ffb0b0">
+                      Comment is required.
+                    </FormErrorMessage>
                   )}
-                </FormControl>{" "}
+                </FormControl>
                 <Button
                   color="#242424"
                   backgroundColor="#1ed760"
@@ -266,6 +272,7 @@ const Post = () => {
                   boxShadow="dark-lg"
                   size="sm"
                   onClick={() => submitComment(post.id)}
+                  isDisabled={input.trim() === ""}
                 >
                   Post Comment
                 </Button>
