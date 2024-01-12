@@ -5,14 +5,11 @@ import "../src/Post.css";
 import Nav from "../src/Nav";
 import {
   FormControl,
-  FormLabel,
   FormErrorMessage,
   FormHelperText,
   Input,
   Flex,
-  Spacer,
   VStack,
-  Textarea,
   Button,
 } from "@chakra-ui/react";
 import { TriangleUpIcon } from "@chakra-ui/icons";
@@ -170,23 +167,23 @@ const Post = () => {
               >
                 {isEditing ? (
                   <VStack width="100%">
-                    <Flex
+                    <Input
                       width="100%"
                       type="text"
-                      placeholder={post.title}
+                      textColor="gray"
+                      defaultValue={post.title}
                       onChange={(e) => setNewTitle(e.target.value)}
-                      className="edit-input"
                     />
-                    <Flex
-                      placeholder={post.description}
+                    <Input
+                      width="100%"
+                      type="text"
+                      textColor="gray"
+                      defaultValue={post.description}
                       onChange={(e) => setNewDescription(e.target.value)}
-                      className="edit-textarea"
-                      w="100%"
-                      mb={4}
                     />
-                    <button onClick={handleUpdate} className="update-button">
+                    <Button onClick={handleUpdate} background="#4caf50">
                       Save
-                    </button>
+                    </Button>
                   </VStack>
                 ) : (
                   <VStack width="100%">
