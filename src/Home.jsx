@@ -121,6 +121,9 @@ const Home = () => {
                     padding="1rem"
                     borderRadius="1rem"
                     boxShadow="dark-lg"
+                    _hover={{
+                      backgroundColor: "#444f44",
+                    }}
                   >
                     <VStack width="100%">
                       <Flex

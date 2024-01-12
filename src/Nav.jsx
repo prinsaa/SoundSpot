@@ -1,4 +1,4 @@
-import { VStack, Flex, HStack, Heading } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Link as Lin } from "@chakra-ui/react";
