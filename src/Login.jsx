@@ -5,8 +5,8 @@ import {
   Link,
   Button,
   Input,
-  HStack,
-  Center,
+  OrderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import {
   FormControl,
@@ -124,11 +124,13 @@ const Login = () => {
       <Nav />
       <Flex justifyContent="center">
         {!token ? (
-          <Link
-            href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}
-          >
-            Login to Spotify
-          </Link>
+          <Button background="#1ed760">
+            <Link
+              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}
+            >
+              Login to Spotify
+            </Link>
+          </Button>
         ) : (
           <Button background="gray" variant="solid" onClick={logout}>
             Log Out
@@ -168,11 +170,13 @@ const Login = () => {
               <Text fontSize="2xl" as="b" paddingTop="2rem" color="#242424">
                 Top Tracks for {selectedArtist.name}:
               </Text>
-              {topTracks.map((track) => (
-                <Text key={track.id} fontSize="xl">
-                  {track.name}
-                </Text>
-              ))}
+              <OrderedList>
+                {topTracks.map((track) => (
+                  <ListItem key={track.id} fontSize="xl">
+                    {track.name}
+                  </ListItem>
+                ))}
+              </OrderedList>
             </VStack>
           </>
         ) : (
