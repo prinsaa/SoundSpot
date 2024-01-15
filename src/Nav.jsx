@@ -19,6 +19,8 @@ const Nav = () => {
       <HStack spacing="8">
         <Link to="/">Home</Link>
         <Link to="/Create">Create New Post</Link>
+        <Link to="/Board">Board</Link>
+        <Link to="/Login">Login</Link>
       </HStack>
     </Flex>
   );
