@@ -7,6 +7,11 @@ import {
   Input,
   OrderedList,
   ListItem,
+  Grid,
+  HStack,
+  WrapItem,
+  Wrap,
+  Center,
 } from "@chakra-ui/react";
 import {
   FormControl,
@@ -94,8 +99,9 @@ const Login = () => {
         <Text fontSize="2xl" as="b">
           {artist.name}
         </Text>
+
         {artist.images.length ? (
-          <img width={"30%"} src={artist.images[0].url} alt="" />
+          <img width={"20%"} src={artist.images[0].url} alt="" />
         ) : (
           <Text>No Image</Text>
         )}
@@ -122,7 +128,7 @@ const Login = () => {
   return (
     <>
       <Nav />
-      <Flex justifyContent="center">
+      <Flex justifyContent="center" paddingTop="2rem">
         {!token ? (
           <Button background="#1ed760">
             <Link
@@ -137,43 +143,64 @@ const Login = () => {
           </Button>
         )}
       </Flex>
-      <Flex justifyContent="center" paddingTop="2rem">
-        {token ? (
-          <VStack width="50%" justifyContent="center">
-            <form onSubmit={searchArtist}>
-              <FormControl isRequired>
-                <FormLabel>Search</FormLabel>
-                <Input
-                  type="text"
-                  placeholder="Artist Name"
-                  onChange={(e) => setSearchKey(e.target.value)}
-                />
-                <FormHelperText>
-                  Which artist are you curious about?
-                </FormHelperText>
 
-                <Button type="submit" background="#1ed760" mt={4}>
-                  Search
-                </Button>
-              </FormControl>
-            </form>
-          </VStack>
+      <VStack justifyContent="center" paddingTop="3rem" width="100%">
+        {token ? (
+          <form onSubmit={searchArtist}>
+            <FormControl isRequired width="100%">
+              <FormLabel>Search</FormLabel>
+              <Input
+                type="text"
+                placeholder="Artist Name"
+                onChange={(e) => setSearchKey(e.target.value)}
+              />
+              <FormHelperText justifyContent="center">
+                Which top tracks of an artist are you curious about? (based on
+                Canada Spotify)
+              </FormHelperText>
+
+              <Button
+                type="submit"
+                background="#1ed760"
+                mt={4}
+                justifyContent="center"
+              >
+                Search
+              </Button>
+            </FormControl>
+          </form>
         ) : (
-          <Text>Login to Acesss This Cool Feature</Text>
+          <Text justifyContent="center" width="50%">
+            Login now to groove to the top tracks of an artist of YOUR CHOICE!
+            Elevate your vibe in seconds – it's that simple, and that
+            sensational!
+          </Text>
         )}
-      </Flex>
+      </VStack>
 
       <>
         {selectedArtist ? (
           <>
-            <VStack>
-              <Text fontSize="2xl" as="b" paddingTop="2rem" color="#242424">
+            <VStack paddingBottom="5rem">
+              <Text fontSize="2xl" as="b" paddingTop="3rem" color="#242424">
                 Top Tracks for {selectedArtist.name}:
+              </Text>
+              <Text fontSize="md" as="i" paddingBottom="2rem" color="#242424">
+                Click on the song to listen and become a #1 fan 🔥
               </Text>
               <OrderedList>
                 {topTracks.map((track) => (
                   <ListItem key={track.id} fontSize="xl">
-                    {track.name}
+                    <Link
+                      href={track.external_urls.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      _hover={{
+                        background: "#1ed760",
+                      }}
+                    >
+                      {track.name}
+                    </Link>
                   </ListItem>
                 ))}
               </OrderedList>
