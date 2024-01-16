@@ -35,12 +35,19 @@ const Login = () => {
   const REDIRECT_URL = "http://localhost:5173/Login";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
+  const SCOPE = "user-top-read";
 
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("");
   const [artists, setArtists] = useState([]);
   const [topTracks, setTopTracks] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
+  //for tracks
+  const [userTopTen, setUserTopTen] = useState([]);
+  const [userWantsTopTen, setuserWantsTopTen] = useState(false);
+  //for artists
+  const [userTopTenArt, setUserTopTenArt] = useState([]);
+  const [userWantsTopTenArt, setuserWantsTopTenArt] = useState(false);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -66,6 +73,7 @@ const Login = () => {
     setArtists([]);
     setTopTracks([]);
     setSelectedArtist(null);
+    setuserWantsTopTen(false);
     window.localStorage.removeItem("token");
   };
 
@@ -85,6 +93,31 @@ const Login = () => {
     setTopTracks([]); //reset the data if new search
     setSelectedArtist(null); //reset the data if new search
     setArtists(data.artists.items);
+  };
+
+  const getTopTenTracks = async (e) => {
+    e.preventDefault();
+
+    const timeRange = "medium_term";
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/me/top/tracks?limit=10&time_range=${timeRange}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(data);
+    setUserTopTen(data.items);
+
+    // setUserTopTen((prevUserTopTen) => {
+    //   console.log("userTopTen", prevUserTopTen);
+    //   return prevUserTopTen; // Return the updated state
+    // });
+
+    setuserWantsTopTen(true);
   };
 
   const renderArtists = () => {
@@ -125,6 +158,25 @@ const Login = () => {
     setSelectedArtist({ id: artistId, name: artistName });
   };
 
+  // const printTopTen = () => {
+  //   return userTopTen.map((track) => (
+  //     <VStack>
+  //       <ListItem key={track.id} fontSize="xl">
+  //         <Link
+  //           href={track.external_urls.spotify}
+  //           target="_blank"
+  //           rel="noopener noreferrer"
+  //           _hover={{
+  //             background: "#1ed760",
+  //           }}
+  //         >
+  //           {track.name}
+  //         </Link>
+  //       </ListItem>
+  //     </VStack>
+  //   ));
+  // };
+
   return (
     <>
       <Nav />
@@ -132,7 +184,9 @@ const Login = () => {
         {!token ? (
           <Button background="#1ed760">
             <Link
-              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}`}
+              href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URL}&response_type=${RESPONSE_TYPE}&scope=${encodeURIComponent(
+                SCOPE
+              )}`}
             >
               Login to Spotify
             </Link>
@@ -143,32 +197,66 @@ const Login = () => {
           </Button>
         )}
       </Flex>
-
       <VStack justifyContent="center" paddingTop="3rem" width="100%">
         {token ? (
-          <form onSubmit={searchArtist}>
-            <FormControl isRequired width="100%">
-              <FormLabel>Search</FormLabel>
-              <Input
-                type="text"
-                placeholder="Artist Name"
-                onChange={(e) => setSearchKey(e.target.value)}
-              />
-              <FormHelperText justifyContent="center">
-                Which top tracks of an artist are you curious about? (based on
-                Canada Spotify)
-              </FormHelperText>
+          <>
+            <form onSubmit={searchArtist}>
+              <FormControl isRequired width="100%">
+                <FormLabel>Search</FormLabel>
+                <Input
+                  type="text"
+                  placeholder="Artist Name"
+                  onChange={(e) => setSearchKey(e.target.value)}
+                />
+                <FormHelperText justifyContent="center">
+                  Which top tracks of an artist are you curious about? (based on
+                  Canada Spotify)
+                </FormHelperText>
 
+                <Button
+                  type="submit"
+                  background="#1ed760"
+                  mt={4}
+                  justifyContent="center"
+                >
+                  Search
+                </Button>
+              </FormControl>
+            </form>
+
+            <VStack justifyContent="center" padding="3rem">
               <Button
-                type="submit"
                 background="#1ed760"
-                mt={4}
-                justifyContent="center"
+                onClick={getTopTenTracks}
+                disabled={setuserWantsTopTen}
               >
-                Search
+                Get My Top 10 Tracks
               </Button>
-            </FormControl>
-          </form>
+
+              <OrderedList width="65%">
+                {userWantsTopTen &&
+                  userTopTen.map((track) => (
+                    <ListItem
+                      key={track.id}
+                      fontSize="xl"
+                      justifyContent="center"
+                      padding="10px"
+                    >
+                      <Link
+                        href={track.external_urls.spotify}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        _hover={{
+                          background: "#1ed760",
+                        }}
+                      >
+                        {track.name} by {track.artists[0].name}
+                      </Link>
+                    </ListItem>
+                  ))}
+              </OrderedList>
+            </VStack>
+          </>
         ) : (
           <Text justifyContent="center" width="50%">
             Login now to groove to the top tracks of an artist of YOUR CHOICE!
@@ -177,7 +265,6 @@ const Login = () => {
           </Text>
         )}
       </VStack>
-
       <>
         {selectedArtist ? (
           <>
@@ -210,7 +297,29 @@ const Login = () => {
           <>{renderArtists()}</>
         )}
       </>
+      {/* <VStack justifyContent="center" padding="2rem">
+        <Button onClick={getTopTenTracks} disabled={setuserWantsTopTen}>
+          Get My Top 10 Tracks
+        </Button>
 
+        <OrderedList>
+          {userWantsTopTen &&
+            userTopTen.map((track) => (
+              <ListItem key={track.id} fontSize="xl">
+                <Link
+                  href={track.external_urls.spotify}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  _hover={{
+                    background: "#1ed760",
+                  }}
+                >
+                  {track.name}
+                </Link>
+              </ListItem>
+            ))}
+        </OrderedList>
+      </VStack> */}
       {/* {renderArtists()}
 
       {topTracks.length > 0 && (
