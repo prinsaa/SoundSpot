@@ -120,6 +120,25 @@ const Login = () => {
     setuserWantsTopTen(true);
   };
 
+  const getTopTenArtists = async (e) => {
+    e.preventDefault();
+
+    const timeRange = "medium_term";
+    const { data } = await axios.get(
+      `https://api.spotify.com/v1/me/top/artists?limit=10&time_range=${timeRange}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(data);
+    setUserTopTenArt(data.items);
+    setuserWantsTopTenArt(true);
+  };
+
   const renderArtists = () => {
     return artists.map((artist) => (
       <VStack
@@ -157,25 +176,6 @@ const Login = () => {
     setTopTracks(data.tracks);
     setSelectedArtist({ id: artistId, name: artistName });
   };
-
-  // const printTopTen = () => {
-  //   return userTopTen.map((track) => (
-  //     <VStack>
-  //       <ListItem key={track.id} fontSize="xl">
-  //         <Link
-  //           href={track.external_urls.spotify}
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //           _hover={{
-  //             background: "#1ed760",
-  //           }}
-  //         >
-  //           {track.name}
-  //         </Link>
-  //       </ListItem>
-  //     </VStack>
-  //   ));
-  // };
 
   return (
     <>
@@ -224,44 +224,95 @@ const Login = () => {
               </FormControl>
             </form>
 
-            <VStack justifyContent="center" padding="3rem">
-              <Button
-                background="#1ed760"
-                onClick={getTopTenTracks}
-                disabled={setuserWantsTopTen}
-              >
-                Get My Top 10 Tracks
-              </Button>
+            <Text paddingTop="5rem">
+              You don't have to wait until December for Spotify Wrap, get your
+              Top 10 immediately!😎
+            </Text>
 
-              <OrderedList width="65%">
-                {userWantsTopTen &&
-                  userTopTen.map((track) => (
-                    <ListItem
-                      key={track.id}
-                      fontSize="xl"
-                      justifyContent="center"
-                      padding="10px"
-                    >
-                      <Link
-                        href={track.external_urls.spotify}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        _hover={{
-                          background: "#1ed760",
-                        }}
+            <HStack width="100%">
+              <VStack
+                justifyContent="center"
+                padding="3rem"
+                width="100%"
+                align="flex-end"
+              >
+                <Button
+                  background="#1ed760"
+                  onClick={getTopTenTracks}
+                  disabled={setuserWantsTopTen}
+                >
+                  Get My Top 10 Tracks
+                </Button>
+
+                <OrderedList width="65%">
+                  {userWantsTopTen &&
+                    userTopTen.map((track) => (
+                      <ListItem
+                        key={track.id}
+                        fontSize="xl"
+                        justifyContent="center"
+                        // padding="10px"
                       >
-                        {track.name} by {track.artists[0].name}
-                      </Link>
-                    </ListItem>
-                  ))}
-              </OrderedList>
-            </VStack>
+                        <Link
+                          href={track.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          _hover={{
+                            background: "#1ed760",
+                          }}
+                        >
+                          {track.name} by {track.artists[0].name}
+                        </Link>
+                      </ListItem>
+                    ))}
+                </OrderedList>
+              </VStack>
+
+              <VStack
+                justifyContent="center"
+                padding="3rem"
+                width="100%"
+                align="flex-start"
+              >
+                <Button
+                  background="#1ed760"
+                  onClick={getTopTenArtists}
+                  disabled={setuserWantsTopTenArt}
+                >
+                  Get My Top 10 Artists
+                </Button>
+
+                <OrderedList width="65%">
+                  {userWantsTopTenArt &&
+                    userTopTenArt.map((art) => (
+                      <ListItem
+                        key={art.id}
+                        fontSize="xl"
+                        justifyContent="center"
+                        padding="1.52px"
+                      >
+                        <Link
+                          href={art.external_urls.spotify}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          _hover={{
+                            background: "#1ed760",
+                          }}
+                        >
+                          {art.name}
+                        </Link>
+                      </ListItem>
+                    ))}
+                </OrderedList>
+              </VStack>
+            </HStack>
           </>
         ) : (
-          <Text justifyContent="center" width="50%">
+          <Text justifyContent="center" width="40%">
             Login now to groove to the top tracks of an artist of YOUR CHOICE!
-            Elevate your vibe in seconds – it's that simple, and that
-            sensational!
+            Elevate your vibe in seconds – it's that simple. Did I mention you
+            can get your TOP 10 artists/tracks instantly? No need to wait until
+            December 😉
           </Text>
         )}
       </VStack>
