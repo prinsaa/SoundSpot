@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 import {
   Text,
   Flex,
@@ -31,8 +33,8 @@ import { supabase } from "./createClient";
 import { Form } from "react-router-dom";
 
 const Login = () => {
-  const CLIENT_ID = "0163df7b849d41d38fc556f529f97060";
-  const REDIRECT_URL = "http://localhost:5173/Login";
+  const CLIENT_ID = import.meta.env.VITE_APP_CLIENT_ID;
+  const REDIRECT_URL = import.meta.env.VITE_APP_REDIRECT_URL;
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "user-top-read";
@@ -60,7 +62,7 @@ const Login = () => {
         .find((elem) => elem.startsWith("access_token"))
         .split("=")[1];
 
-      console.log(token);
+      // console.log(token);
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
