@@ -109,7 +109,7 @@ const Home = () => {
               <VStack width="100%">
                 <ChakraLink
                   as={Link}
-                  to={`/post/${post.id}`}
+                  to={`/SoundSpot/post/${post.id}`}
                   key={post.id}
                   textDecoration="none"
                   width="100%"

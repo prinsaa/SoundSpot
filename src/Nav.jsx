@@ -13,7 +13,11 @@ const Nav = () => {
       padding="1rem"
     >
       <Flex _hover={{ color: "gray" }}>
-        <Lin href="/" style={{ textDecoration: "none" }} fontSize="25px">
+        <Lin
+          href="/SoundSpot"
+          style={{ textDecoration: "none" }}
+          fontSize="25px"
+        >
           SoundSpot
         </Lin>
       </Flex>
@@ -21,13 +25,13 @@ const Nav = () => {
       <HStack spacing="8">
         <Flex _hover={{ color: "gray" }}>
           {" "}
-          <Link to="/">Home</Link>
+          <Link to="/SoundSpot">Home</Link>
         </Flex>
         <Flex _hover={{ color: "gray" }}>
-          <Link to="/Create">Create New Post</Link>
+          <Link to="/SoundSpot/Create">Create New Post</Link>
         </Flex>
         <Flex _hover={{ color: "gray" }}>
-          <Link to="/Login">Spotify Stats</Link>
+          <Link to="/SoundSpot/Login">Spotify Stats</Link>
         </Flex>
       </HStack>
     </Flex>
