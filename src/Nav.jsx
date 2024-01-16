@@ -1,4 +1,4 @@
-import { Flex, HStack } from "@chakra-ui/react";
+import { Flex, HStack, background, color } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Link as Lin } from "@chakra-ui/react";
@@ -12,14 +12,23 @@ const Nav = () => {
       as="b"
       padding="1rem"
     >
-      <Lin href="/" style={{ textDecoration: "none" }} fontSize="25px">
-        SoundSpot
-      </Lin>
+      <Flex _hover={{ color: "gray" }}>
+        <Lin href="/" style={{ textDecoration: "none" }} fontSize="25px">
+          SoundSpot
+        </Lin>
+      </Flex>
 
       <HStack spacing="8">
-        <Link to="/">Home</Link>
-        <Link to="/Create">Create New Post</Link>
-        <Link to="/Login">Login</Link>
+        <Flex _hover={{ color: "gray" }}>
+          {" "}
+          <Link to="/">Home</Link>
+        </Flex>
+        <Flex _hover={{ color: "gray" }}>
+          <Link to="/Create">Create New Post</Link>
+        </Flex>
+        <Flex _hover={{ color: "gray" }}>
+          <Link to="/Login">Spotify Stats</Link>
+        </Flex>
       </HStack>
     </Flex>
   );

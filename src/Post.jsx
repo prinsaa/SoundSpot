@@ -216,7 +216,7 @@ const Post = () => {
                       {post.title}
                     </Text>
                     <Text textColor="white">{post.description}</Text>
-                    <HStack>
+                    <HStack paddingTop="4rem">
                       <Button
                         colorScheme="green"
                         variant="solid"

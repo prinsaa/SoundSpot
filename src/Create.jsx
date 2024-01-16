@@ -58,7 +58,7 @@ const Create = () => {
   return (
     <>
       <Nav />
-      <Box backgroundColor="grey">
+      <Box backgroundColor="#242424">
         <Center>
           <Flex
             width="100%"
