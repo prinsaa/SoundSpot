@@ -180,7 +180,7 @@ const Login = () => {
   return (
     <>
       <Nav />
-      <Flex justifyContent="center" paddingTop="2rem">
+      <Flex justifyContent="center" paddingTop="8rem" background="#242424">
         {!token ? (
           <Button background="#1ed760">
             <Link
@@ -197,18 +197,23 @@ const Login = () => {
           </Button>
         )}
       </Flex>
-      <VStack justifyContent="center" paddingTop="3rem" width="100%">
+      <VStack
+        justifyContent="center"
+        background="#242424"
+        paddingTop="3rem"
+        width="100%"
+      >
         {token ? (
           <>
             <form onSubmit={searchArtist}>
-              <FormControl isRequired width="100%">
+              <FormControl isRequired width="100%" color="white">
                 <FormLabel>Search</FormLabel>
                 <Input
                   type="text"
                   placeholder="Artist Name"
                   onChange={(e) => setSearchKey(e.target.value)}
                 />
-                <FormHelperText justifyContent="center">
+                <FormHelperText justifyContent="center" color="white">
                   Which top tracks of an artist are you curious about? (based on
                   Canada Spotify)
                 </FormHelperText>
@@ -224,9 +229,13 @@ const Login = () => {
               </FormControl>
             </form>
 
-            <Text paddingTop="5rem">
+            <Text paddingTop="5rem" color="white" fontSize="lg">
               You don't have to wait until December for Spotify Wrap, get your
               Top 10 immediately!😎
+            </Text>
+
+            <Text color="white" as="i">
+              Click on any to take your enthusiasm to the next level!
             </Text>
 
             <HStack width="100%">
@@ -244,7 +253,7 @@ const Login = () => {
                   Get My Top 10 Tracks
                 </Button>
 
-                <OrderedList width="65%">
+                <OrderedList width="65%" color="white">
                   {userWantsTopTen &&
                     userTopTen.map((track) => (
                       <ListItem
@@ -259,6 +268,7 @@ const Login = () => {
                           rel="noopener noreferrer"
                           _hover={{
                             background: "#1ed760",
+                            textColor: "black",
                           }}
                         >
                           {track.name} by {track.artists[0].name}
@@ -282,7 +292,7 @@ const Login = () => {
                   Get My Top 10 Artists
                 </Button>
 
-                <OrderedList width="65%">
+                <OrderedList width="65%" color="white" as="b">
                   {userWantsTopTenArt &&
                     userTopTenArt.map((art) => (
                       <ListItem
@@ -297,6 +307,7 @@ const Login = () => {
                           rel="noopener noreferrer"
                           _hover={{
                             background: "#1ed760",
+                            textColor: "black",
                           }}
                         >
                           {art.name}
@@ -308,11 +319,13 @@ const Login = () => {
             </HStack>
           </>
         ) : (
-          <Text justifyContent="center" width="40%">
-            Login now to groove to the top tracks of an artist of YOUR CHOICE!
-            Elevate your vibe in seconds – it's that simple. Did I mention you
-            can get your TOP 10 artists/tracks instantly? No need to wait until
-            December 😉
+          <Text justifyContent="center" width="40%" color="white">
+            Login now to groove to the
+            <span style={{ color: "#1ed760" }}> top tracks</span> of an artist
+            of YOUR CHOICE! Elevate your vibe in seconds – it's that simple. Did
+            I mention you can get{" "}
+            <span style={{ color: "#1ed760" }}>your TOP 10</span> artists/tracks
+            instantly? No need to wait until December 😉
           </Text>
         )}
       </VStack>
