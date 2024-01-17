@@ -8,7 +8,7 @@ import Login from "./Login";
 const App = () => {
   return (
     <div>
-      <BrowserRouter basename="/SoundSpot">
+      <BrowserRouter basename="/">
         <Routes>
           <Route path="/SoundSpot" element={<Home />} />
           <Route path="/SoundSpot/Create" element={<Create />} />
