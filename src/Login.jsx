@@ -34,7 +34,7 @@ import { Form } from "react-router-dom";
 
 const Login = () => {
   const CLIENT_ID = import.meta.env.VITE_APP_CLIENT_ID;
-  const REDIRECT_URL = "https://prinsaa.github.io/SoundSpot/Login";
+  const REDIRECT_URL = import.meta.env.VITE_APP_REDIRECT_URL;
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
   const RESPONSE_TYPE = "token";
   const SCOPE = "user-top-read";
